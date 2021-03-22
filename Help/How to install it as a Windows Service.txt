@@ -1,0 +1,36 @@
+Follow these instructions in order to install Map Stories Server as a Windows Service.
+This way Map Stories Server will be launched immediately when Windows starts up, and there is no need to login in order to launch it.
+
+1. Refer here to download winsw.exe: https://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/
+2. Make sure you have defined JAVA_HOME environment variable and put %JAVA_HOME%\bin at the PATH environment variable. We depend on a JVM (version 11+) in order to run.
+3. Create a configuration file at the installation directory, and name it as the service identifier: MapStoriesServer.xml
+   Content of the XML:
+	<service>
+		<id>MapStoriesServer</id>
+		<name>Map Stories Server</name>
+		<description>This runs Map Stories Server as a Service.</description>
+		<env name="MYAPP_HOME" value="%BASE%"/>
+		<executable>java</executable>
+		<arguments>-XX:+HeapDumpOnOutOfMemoryError -Xms64m -Xmx4G -showversion -jar "%BASE%\map-stories-server-1.0.0.jar"</arguments>
+		<logmode>rotate</logmode>
+	</service>
+4. Rename winsw.exe file to MapStoriesServer.exe and move it to the installation directory, next to the xml file.
+5. Copy the map-stories-server-1.0.0.jar file to the same folder, next to MapStoriesServer.exe
+6. Open cmd at the folder you saved MapStoriesServer.exe
+7. Write: MapStoriesServer.exe install
+8. Press enter
+9. Good job, you have map-stories-server installed as a service.
+
+
+Appendix:
+Explanation about the runtime arguments we use:
+HeapDumpOnOutOfMemoryError - To have a heapdump when there is OutOfMemory, so we can analyze it and find memory leaks, if I've made them...
+Minimum memory: 64 Mega.
+Maximum memory: 4 Giga.
+
+Note that we log information to C:\BraveTogether\log by default. 
+It is modifiable, to support running the server on a Linux machine. 
+For this, you need to specify a jvm system property: org.bravetogether.mapstories.logdir that refers to the log folder. 
+For example:
+		<arguments>-XX:+HeapDumpOnOutOfMemoryError "-Dorg.bravetogether.mapstories.logdir=%BASE%\log" -Xms64m -Xmx4G -showversion -jar "%BASE%\map-stories-server-1.0.0.jar"</arguments>
+This will use a log directory under base installation directory.

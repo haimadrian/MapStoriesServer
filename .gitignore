@@ -21,3 +21,14 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# IntelliJ Files #
+.idea
+
+# Gradle Build Files #
+.gradle
+Project/build
+
+# Exclude certificates #
+.p12
+.crt
