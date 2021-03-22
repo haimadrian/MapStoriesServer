@@ -197,7 +197,7 @@ Method: `PUT`
 
 Path: `https://HOST:PORT/user/signout`
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty. We'll extract user identifier out of the Bearer token
 
@@ -208,7 +208,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/user/info/{userId}` replace {userId} with the user identifier. e.g. haim@gmail.com
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty.
 
@@ -232,7 +232,7 @@ Method: `POST`
 
 Path: `https://HOST:PORT/coordinate`
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: 
 ```json
@@ -263,7 +263,7 @@ Method: `POST`
 
 Path: `https://HOST:PORT/coordinate/{coordinateId}` (Replace {coordinateId} with the coordinate identifier)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: 
 ```json
@@ -294,11 +294,11 @@ Method: `GET`
 
 Path: `https://HOST:PORT/coordinate`
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
-Response: Note that we avoid of returning images when requesting all coordinates, to reduce response size. Use /coordinate/{id} if you want the image
+Response: Note that we avoid of returning images when requesting all coordinates, to reduce response size. Use [Get coordinate by identifier](#restful-coordinate-getcoordinate) if you want the image
 ```json
 [
     {
@@ -324,7 +324,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/coordinate/{coordinateId}` (Replace {coordinateId} with the coordinate identifier)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
@@ -346,7 +346,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/coordinate/dist?lat={latValue}&lng={lngValue}&dist={distanceInKm}` (Note that dist param is optional. We will use 1KM by default.)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
@@ -379,7 +379,7 @@ Method: `POST`
 
 Path: `https://HOST:PORT/story`
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: (Note that user and coordinate contain the identifiers only, and they must be existing at the server)
 ```json
@@ -431,7 +431,7 @@ Method: `POST`
 
 Path: `https://HOST:PORT/story/{storyId}` (Replace {storyId} with story identifier)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body and Response are the same as for Upload Story, with only one difference. Body will contain a real story identifier and not null.
 
@@ -442,7 +442,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/story/{storyId}` (Replace {storyId} with story identifier. e.g. `708`)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
@@ -478,7 +478,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/story/hero/{heroName}` (Replace {heroName} with the name of the hero. It does not have to be full name. e.g. `costanza`)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
@@ -517,7 +517,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/story/title/{title}` (Replace {title} with the text to lookup for. It does not have to be full title. e.g. `pho`)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
@@ -556,7 +556,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/story/user/{userId}` (Replace {userId} with the user identifier to lookup for. It has to be the full user identifier. e.g. `haim@gmail.com`)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
@@ -595,7 +595,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/story/location/{locationName}` (Replace {locationName} with the name of the location to lookup for. It does not have to be the full location name. e.g. `holon`)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
@@ -634,7 +634,7 @@ Method: `GET`
 
 Path: `https://HOST:PORT/story/coordinate/{coordinateId}` (Replace {coordinateId} with the identifier to lookup for. e.g. `1202`)
 
-Header: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
+Header: `Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWltIiwidXNlck5hbWUiOiJIYWltIEFkcmlhbiJ9.J28593Lq7IbO_Jvz4tK3GaP3K2FnSNqSq9O9SK2I3lA`
 
 Body: Empty
 
