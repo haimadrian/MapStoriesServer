@@ -38,7 +38,7 @@ A repository to maintain the backend of Map Stories application
 * Spring boot application which is packed as an executable jar with embedded Tomcat server
 * The server accepts HTTPS requests only
 * Services (requests) are proected using JWT
-* Available for installation as a service, and can able to run on both Linux and Windows systems
+* Available for installation as a service, and can run on both Linux and Windows systems
 
 <a name="requirements"></a>
 ## Requirements
