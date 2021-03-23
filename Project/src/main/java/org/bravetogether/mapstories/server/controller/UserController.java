@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+import static org.bravetogether.mapstories.server.config.JwtAuthenticationFilter.AUTHORIZATION_HEADER;
+
 /**
  * All user RESTful web services are in this controller class.
  * @author Haim Adrian
@@ -86,10 +88,15 @@ public class UserController {
    }
 
    @PutMapping("/signout")
-   public ResponseEntity<?> signOut(@RequestBody User user) {
+   public ResponseEntity<?> signOut(@RequestHeader(AUTHORIZATION_HEADER) String jwtToken) {
       try {
-         if ((user == null) || (user.getId() == null) || user.getId().isBlank()) {
+         if ((jwtToken == null) || jwtToken.isBlank()) {
             return ResponseEntity.badRequest().body(USER_DETAILS_ARE_MANDATORY_SIGN_IN_BAD_REQUEST);
+         }
+
+         User user = jwtUtils.parseToken(jwtToken);
+         if (user == null) {
+            return ResponseEntity.ok("Invalid token");
          }
 
          Optional<? extends User> userEntity = userService.findById(user.getId());

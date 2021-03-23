@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Any {
    @GetMapping
    public ResponseEntity<?> any() {
-      return ResponseEntity.ok("Welcome to Map Stories Server! This page does not exist");
+      return ResponseEntity.ok("<h1>Welcome to Map Stories server</h1>\nThis page does not exist");
    }
 }
 

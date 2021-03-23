@@ -33,10 +33,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
    @Override
    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
       String pathInfo = request.getServletPath();
+      if ((pathInfo == null) || pathInfo.isBlank()) {
+         pathInfo = request.getPathInfo(); // This is usable during unit tests only.
+      }
 
       // Some hard coded shit, I know.. But this is a "before" filter without a bean to control on which paths it should not apply.
       // We cannot validate JWT token for the signup and signin, since server has not created a JWT yet.
-      if (!pathInfo.isBlank() && !pathInfo.trim().equals("/") && !pathInfo.toLowerCase().contains("user/signin") && !pathInfo.toLowerCase().contains("user/signup")) {
+      if ((pathInfo != null) && !pathInfo.isBlank() && !pathInfo.trim().equals("/") && !pathInfo.toLowerCase().contains("user/signin") && !pathInfo.toLowerCase().contains("user/signup")) {
          // Get these by ourselves since the class is not a @Component, cause we don't want the filter to be applied for all requests.
          if (userService == null) {
             ServletContext servletContext = request.getServletContext();

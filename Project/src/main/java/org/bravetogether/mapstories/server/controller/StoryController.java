@@ -1,7 +1,12 @@
 package org.bravetogether.mapstories.server.controller;
 
+import org.bravetogether.mapstories.server.model.bean.story.Coordinate;
 import org.bravetogether.mapstories.server.model.bean.story.Story;
+import org.bravetogether.mapstories.server.model.bean.user.User;
+import org.bravetogether.mapstories.server.model.bean.user.UserDBImpl;
+import org.bravetogether.mapstories.server.model.service.CoordinateService;
 import org.bravetogether.mapstories.server.model.service.StoryService;
+import org.bravetogether.mapstories.server.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +28,12 @@ public class StoryController {
    @Autowired
    private StoryService storyService;
 
+   @Autowired
+   private UserService userService;
+
+   @Autowired
+   private CoordinateService coordinateService;
+
    @PostMapping
    public ResponseEntity<?> uploadStory(@RequestBody Story story) {
       try {
@@ -35,6 +46,10 @@ public class StoryController {
          }
 
          try {
+            // Do not let clients to affect users/coordinates through this API. Get the references here.
+            ResponseEntity<String> responseEntity = fillInUserAndCoordinateRefs(story);
+            if (responseEntity != null) return responseEntity;
+
             // The response will contain story identifier
             return ResponseEntity.ok(storyService.save(story));
          } catch (IllegalArgumentException e) {
@@ -67,6 +82,10 @@ public class StoryController {
          if (!existingStory.get().getUser().getId().equals(story.getUser().getId())) {
             return ResponseEntity.badRequest().body("Unable to update story user. [specified=" + story.getUser().getId() + ", existing=" + existingStory.get().getUser().getId() + "]");
          }
+
+         // Do not let clients to affect users/coordinates through this API. Get the references here.
+         ResponseEntity<String> responseEntity = fillInUserAndCoordinateRefs(story);
+         if (responseEntity != null) return responseEntity;
 
          try {
             return ResponseEntity.ok(storyService.save(story));
@@ -175,7 +194,30 @@ public class StoryController {
     * @return The copy
     */
    private static Collection<Story> copyStoriesRemovingContent(Collection<Story> stories) {
-      return stories.stream().map(story -> new Story(story.getStoryId(), story.getUser(), story.getCoordinate(), story.getSince(), story.getHeroName(), story.getTitle(), "", story.getLinkToVideo())).collect(Collectors.toList());
+      return stories.stream().map(story -> new Story(story.getStoryId(), story.getUser(), CoordinateController.copyCoordinateRemovingImage(story.getCoordinate()), story.getSince(), story.getHeroName(), story.getTitle(), "", story.getLinkToVideo())).collect(Collectors.toList());
+   }
+
+   /**
+    * A helper method used to fetch coordinate and user references from the service layer, so we will protect updating them
+    * when client upload stories.
+    * @param story The story to fill references in
+    * @return Null if we've succeeded and badRequest if we've failed finding user or coordinate.
+    */
+   private ResponseEntity<String> fillInUserAndCoordinateRefs(Story story) {
+      Optional<? extends User> user = userService.findById(story.getUser().getId());
+      if (user.isEmpty()) {
+         return ResponseEntity.badRequest().body("User with identifier " + story.getUser().getId() + " does not exist");
+      }
+
+      story.setUser((UserDBImpl) user.get());
+
+      Optional<Coordinate> coordinate = coordinateService.findById(story.getCoordinate().getCoordinateId());
+      if (coordinate.isEmpty()) {
+         return ResponseEntity.badRequest().body("Coordinate with identifier " + story.getCoordinate().getCoordinateId() + " does not exist");
+      }
+
+      story.setCoordinate(coordinate.get());
+      return null;
    }
 }
 
