@@ -194,7 +194,7 @@ public class StoryController {
     * @return The copy
     */
    private static Collection<Story> copyStoriesRemovingContent(Collection<Story> stories) {
-      return stories.stream().map(story -> new Story(story.getStoryId(), story.getUser(), CoordinateController.copyCoordinateRemovingImage(story.getCoordinate()), story.getSince(), story.getHeroName(), story.getTitle(), "", story.getLinkToVideo())).collect(Collectors.toList());
+      return stories.stream().map(story -> new Story(story.getStoryId(), story.getUser(), story.getCoordinate(), story.getSince(), story.getHeroName(), story.getTitle(), "", story.getLinkToVideo(), story.getImage())).collect(Collectors.toList());
    }
 
    /**

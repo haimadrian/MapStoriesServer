@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ import java.util.Collection;
 @JsonDeserialize(as = UserDBImpl.class)
 @Entity(name = "ms_user")
 @NoArgsConstructor
-@ToString(exclude = {"pwd"})
+@ToString(exclude = {"pwd", "image"})
 public class UserDBImpl implements User {
    /**
     * See {@link User#getId()}
@@ -70,6 +71,11 @@ public class UserDBImpl implements User {
    @Setter
    private long coins;
 
+   @Getter
+   @Setter
+   @Column(name = "image")
+   private byte[] image;
+
    /**
     * Constructs a new {@link UserDBImpl}, copying all fields out of another user.<br/>
     * We use a copy constructor in order to convert client model to server model and vice versa
@@ -80,6 +86,7 @@ public class UserDBImpl implements User {
       this.name = user.getName();
       this.coins = user.getCoins();
       this.dateOfBirth = user.getDateOfBirth();
+      this.image = user.getImage();
 
       if (user instanceof UserImpl) {
          this.pwd = ((UserImpl)user).getPwd();

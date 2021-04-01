@@ -68,9 +68,9 @@ public class CoordinateControllerTest {
 
       authHeader = TestUtils.getJwtTokenFromMvcResult(response);
 
-      Coordinate coordinate = new Coordinate(Double.valueOf(32.01623990507656), Double.valueOf(34.773109201554945), "Holon Institute of Technology", null, null);
-      Coordinate coordinate2 = new Coordinate(Double.valueOf(32.015343027689276), Double.valueOf(34.770769562549276), "Israeli Cartoon Museum", null, null);
-      Coordinate coordinate3 = new Coordinate(Double.valueOf(80.015343027689276), Double.valueOf(84.770769562549276), "Far away location", null, null);
+      Coordinate coordinate = new Coordinate(Double.valueOf(32.01623990507656), Double.valueOf(34.773109201554945), "Holon Institute of Technology", null);
+      Coordinate coordinate2 = new Coordinate(Double.valueOf(32.015343027689276), Double.valueOf(34.770769562549276), "Israeli Cartoon Museum", null);
+      Coordinate coordinate3 = new Coordinate(Double.valueOf(80.015343027689276), Double.valueOf(84.770769562549276), "Far away location", null);
 
       coordinateService.save(coordinate);
       secondId = coordinateService.save(coordinate2).getCoordinateId();
@@ -99,7 +99,7 @@ public class CoordinateControllerTest {
 
    @Test
    void testUploadCoordinate_illegalLat_badRequest() throws Exception {
-      Coordinate coordinate = new Coordinate(Double.valueOf(90.015343027689276), Double.valueOf(34.770769562549276), "somewhere", null, null);
+      Coordinate coordinate = new Coordinate(Double.valueOf(90.015343027689276), Double.valueOf(34.770769562549276), "somewhere", null);
       String json = mapper.writeValueAsString(coordinate);
 
       mockMvc.perform(post("/coordinate").secure(true).header(AUTHORIZATION_HEADER, authHeader).contentType(APPLICATION_JSON_UTF8).content(json))
@@ -108,7 +108,7 @@ public class CoordinateControllerTest {
 
    @Test
    void testUploadCoordinate_illegalLng_badRequest() throws Exception {
-      Coordinate coordinate = new Coordinate(Double.valueOf(32.015343027689276), Double.valueOf(180.770769562549276), "somewhere", null, null);
+      Coordinate coordinate = new Coordinate(Double.valueOf(32.015343027689276), Double.valueOf(180.770769562549276), "somewhere", null);
       String json = mapper.writeValueAsString(coordinate);
 
       mockMvc.perform(post("/coordinate").secure(true).header(AUTHORIZATION_HEADER, authHeader).contentType(APPLICATION_JSON_UTF8).content(json))
@@ -117,7 +117,7 @@ public class CoordinateControllerTest {
 
    @Test
    void testUploadCoordinate_legalCoordinate_success() throws Exception {
-      Coordinate coordinate = new Coordinate(Double.valueOf(34.015343027689276), Double.valueOf(34.770769562549276), "somewhere", null, null);
+      Coordinate coordinate = new Coordinate(Double.valueOf(34.015343027689276), Double.valueOf(34.770769562549276), "somewhere", null);
       String json = mapper.writeValueAsString(coordinate);
 
       mockMvc.perform(post("/coordinate").secure(true).header(AUTHORIZATION_HEADER, authHeader).contentType(APPLICATION_JSON_UTF8).content(json))
@@ -128,7 +128,7 @@ public class CoordinateControllerTest {
 
    @Test
    void testUpdateCoordinate_legalCoordinate_success() throws Exception {
-      Coordinate coordinate = new Coordinate(secondId, Double.valueOf(32.015343027689276), Double.valueOf(34.770769562549276), "updatedName", null, null);
+      Coordinate coordinate = new Coordinate(secondId, Double.valueOf(32.015343027689276), Double.valueOf(34.770769562549276), "updatedName", null);
       String json = mapper.writeValueAsString(coordinate);
 
       mockMvc.perform(post("/coordinate/" + secondId).secure(true).header(AUTHORIZATION_HEADER, authHeader).contentType(APPLICATION_JSON_UTF8).content(json))

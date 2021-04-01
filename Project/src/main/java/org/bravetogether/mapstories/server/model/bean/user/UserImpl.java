@@ -61,6 +61,13 @@ public class UserImpl implements User {
    private long coins;
 
    /**
+    * See {@link User#getCoins()}
+    */
+   @Getter
+   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+   private byte[] image;
+
+   /**
     * Constructs a new {@link UserImpl}. Used by Jackson
     */
    public UserImpl() {
@@ -87,6 +94,7 @@ public class UserImpl implements User {
       this.name = user.getName();
       this.coins = user.getCoins();
       this.dateOfBirth = user.getDateOfBirth();
+      this.image = user.getImage();
       // Do not copy key, so we will not return it to callers
    }
 

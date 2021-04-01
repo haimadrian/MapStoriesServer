@@ -22,7 +22,7 @@ public interface CoordinateRepository extends CrudRepository<Coordinate, Long> {
     * @param distanceInKm Distance to use for finding coordinates in that circle
     * @return Coordinates in the circle around specified point
     */
-   @Query(value = "SELECT coordinate_id, latitude, longitude, location_name, image, (6371 * acos(cos(radians( :latitude )) * cos(radians( latitude )) * cos(radians( longitude ) - radians( :longitude )) + sin(radians( :latitude )) * sin(radians( latitude )))) AS distance " +
+   @Query(value = "SELECT coordinate_id, latitude, longitude, location_name,  (6371 * acos(cos(radians( :latitude )) * cos(radians( latitude )) * cos(radians( longitude ) - radians( :longitude )) + sin(radians( :latitude )) * sin(radians( latitude )))) AS distance " +
                   "FROM ms_coordinate " +
                   "HAVING distance <= :distanceInKm " +
                   "ORDER BY distance ASC",

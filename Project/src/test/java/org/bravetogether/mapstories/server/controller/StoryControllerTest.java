@@ -89,9 +89,9 @@ public class StoryControllerTest {
             .andReturn();
       authHeader2 = TestUtils.getJwtTokenFromMvcResult(response);
 
-      Coordinate coordinate = new Coordinate(Double.valueOf(32.01623990507656), Double.valueOf(34.773109201554945), "Holon Institute of Technology", null, null);
-      Coordinate coordinate2 = new Coordinate(Double.valueOf(32.015343027689276), Double.valueOf(34.770769562549276), "Israeli Cartoon Museum", null, null);
-      coordinate3 = new Coordinate(Double.valueOf(80.015343027689276), Double.valueOf(84.770769562549276), "Far away location", null, null);
+      Coordinate coordinate = new Coordinate(Double.valueOf(32.01623990507656), Double.valueOf(34.773109201554945), "Holon Institute of Technology", null);
+      Coordinate coordinate2 = new Coordinate(Double.valueOf(32.015343027689276), Double.valueOf(34.770769562549276), "Israeli Cartoon Museum", null);
+      coordinate3 = new Coordinate(Double.valueOf(80.015343027689276), Double.valueOf(84.770769562549276), "Far away location", null);
 
       coordinate = coordinateService.save(coordinate);
       coordinate2 = coordinateService.save(coordinate2);
@@ -105,7 +105,8 @@ public class StoryControllerTest {
             "Positions",
             "Heaven sent you to me\n" +
                "I'm just hopin' I don't repeat history",
-            "https://www.youtube.com/watch?v=tcYodQoapMg");
+            "https://www.youtube.com/watch?v=tcYodQoapMg",
+            null);
       Story story2 = new Story(user,
             coordinate,
             LocalDate.of(2020, 11, 17),
@@ -113,7 +114,8 @@ public class StoryControllerTest {
             "Can you stay up all night?\n" +
                   "Fuck me 'til the daylight\n" +
                   "Thirty-four, thirty-five",
-            "https://www.youtube.com/watch?v=B6_iQvaIjXw");
+            "https://www.youtube.com/watch?v=B6_iQvaIjXw",
+            null);
       Story story3 = new Story(user,
             coordinate2,
             LocalDate.of(2019, 11, 10),
@@ -125,13 +127,15 @@ public class StoryControllerTest {
                "It's time for a new empire\n" +
                "Go bury your demons then tear down the ceiling\n" +
                "Phoenix, fly",
-            "https://www.youtube.com/watch?v=dpdWuM4SZdc&ab_channel=LeagueofLegends");
+            "https://www.youtube.com/watch?v=dpdWuM4SZdc&ab_channel=LeagueofLegends",
+            null);
       Story story4 = new Story(user,
             coordinate2,
             LocalDate.of(2019, 11, 10),
             "toBeUpdated",
             "someTitle",
             "contentHere",
+            null,
             null);
 
       storyService.save(story);
@@ -198,13 +202,14 @@ public class StoryControllerTest {
 
    @Test
    void testUploadStory_illegalCoordinate_badRequest() throws Exception {
-      Coordinate coordinate = new Coordinate(Long.valueOf(0), Double.valueOf(90.015343027689276), Double.valueOf(34.770769562549276), "somewhere", null, null);
+      Coordinate coordinate = new Coordinate(Long.valueOf(0), Double.valueOf(90.015343027689276), Double.valueOf(34.770769562549276), "somewhere", null);
       Story story = new Story(user2,
             coordinate,
             LocalDate.of(2019, 11, 10),
             "A",
             "A",
             "someContent",
+            null,
             null);
       String json = mapper.writeValueAsString(story);
 
@@ -220,6 +225,7 @@ public class StoryControllerTest {
             "A",
             "A",
             "someContent",
+            null,
             null);
       String json = mapper.writeValueAsString(story);
 
@@ -238,6 +244,7 @@ public class StoryControllerTest {
             "updatedName",
             "A",
             "someContent",
+            null,
             null);
       String json = mapper.writeValueAsString(story);
 
@@ -257,6 +264,7 @@ public class StoryControllerTest {
             "updatedName",
             "A",
             "someContent",
+            null,
             null);
       String json = mapper.writeValueAsString(story);
 

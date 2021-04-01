@@ -38,18 +38,14 @@ public class Coordinate {
    @Column(name = "location_name")
    private String locationName;
 
-   @Column(name = "image")
-   private byte[] image;
-
    @JsonIgnore
    @OneToMany(mappedBy="coordinate", cascade={CascadeType.PERSIST})
    Collection<Story> stories;
 
-   public Coordinate(@NonNull Double latitude, @NonNull Double longitude, String locationName, byte[] image, Collection<Story> stories) {
+   public Coordinate(@NonNull Double latitude, @NonNull Double longitude, String locationName, Collection<Story> stories) {
       this.latitude = latitude;
       this.longitude = longitude;
       this.locationName = locationName;
-      this.image = image;
       this.stories = stories;
    }
 

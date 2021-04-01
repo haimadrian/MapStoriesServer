@@ -31,5 +31,7 @@ public interface User {
     * @return How many coins this user has earned
     */
    long getCoins();
+
+   byte[] getImage();
 }
 

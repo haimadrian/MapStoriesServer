@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
@@ -71,7 +68,7 @@ public class CoordinateController {
    @GetMapping
    public ResponseEntity<?> getAllCoordinates() {
       try {
-         return ResponseEntity.ok(copyCoordinatesRemovingImage(StreamSupport.stream(coordinateService.findAll().spliterator(), false)));
+         return ResponseEntity.ok(StreamSupport.stream(coordinateService.findAll().spliterator(), false));
       } catch (Throwable t) {
          return ControllerErrorHandler.returnInternalServerError(t);
       }
@@ -108,7 +105,7 @@ public class CoordinateController {
             distanceToUse = Integer.valueOf(1);
          }
 
-         return ResponseEntity.ok(copyCoordinatesRemovingImage(coordinateService.findByDistance(latitude.doubleValue(), longitude.doubleValue(), distanceToUse.intValue())));
+         return ResponseEntity.ok(coordinateService.findByDistance(latitude.doubleValue(), longitude.doubleValue(), distanceToUse.intValue()));
       } catch (Throwable t) {
          return ControllerErrorHandler.returnInternalServerError(t);
       }
@@ -116,28 +113,6 @@ public class CoordinateController {
 
    private static boolean rangeCheck(Double value, double min, double max) {
       return (value != null) && (value.doubleValue() >= min) && (value.doubleValue() <= max);
-   }
-
-   /**
-    * A helper method used to copy coordinates without their image, in order to reduce response weight.
-    * @param coordinates The coordinates to copy without their image
-    * @return The copy
-    */
-   private static Collection<Coordinate> copyCoordinatesRemovingImage(Stream<Coordinate> coordinates) {
-      return coordinates.map(CoordinateController::copyCoordinateRemovingImage).collect(Collectors.toList());
-   }
-
-   /**
-    * A helper method used to copy coordinates without their image, in order to reduce response weight.
-    * @param coordinates The coordinates to copy without their image
-    * @return The copy
-    */
-   private static Collection<Coordinate> copyCoordinatesRemovingImage(Collection<Coordinate> coordinates) {
-      return copyCoordinatesRemovingImage(coordinates.stream());
-   }
-
-   public static Coordinate copyCoordinateRemovingImage(Coordinate coordinate) {
-      return new Coordinate(coordinate.getCoordinateId(), coordinate.getLatitude(), coordinate.getLongitude(), coordinate.getLocationName(), null, coordinate.getStories());
    }
 
 }
