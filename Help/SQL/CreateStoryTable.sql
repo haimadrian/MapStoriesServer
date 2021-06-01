@@ -8,6 +8,7 @@ CREATE TABLE ms_story (
   title 		VARCHAR(255)	NOT NULL,
   content 		TEXT 			DEFAULT NULL, 				-- 64kb should be more than enough for a story :)
   link_to_video	VARCHAR(2048) 	DEFAULT NULL, 				-- ??? If we are sitting in the same database with the videos, then it's better to create a foreign key to their table instead !!!
+  image 		MEDIUMBLOB,
   CONSTRAINT ms_story_pk 		PRIMARY KEY (story_id),
   CONSTRAINT ms_coordinate_fk 	FOREIGN KEY (coordinate_id) -- Create a relation between our table and coordinate table
     REFERENCES ms_coordinate (coordinate_id)

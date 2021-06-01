@@ -6,7 +6,6 @@ CREATE TABLE ms_coordinate (
   latitude 		DECIMAL(17, 15)	NOT NULL,					-- e.g. 32.01623990507656 (latitude range is [-90, 90], so there are 2 digits left to the dot, and 15 decimal digits)
   longitude 	DECIMAL(18, 15)	NOT NULL,					-- e.g. 34.773109201554945 (longitude range is (-180, 180], so there are 3 digits left to the dot, and 15 decimal digits)
   location_name	VARCHAR(64) 	DEFAULT NULL,
-  image 		MEDIUMBLOB 		DEFAULT NULL, 				-- Up to 16MB for an image
   CONSTRAINT ms_coordinate_pk 	PRIMARY KEY (coordinate_id), 
   CONSTRAINT ms_coordinate_check CHECK ((latitude >= -90) AND (latitude <= 90) AND (longitude > -180) AND (longitude <= 180))
 ) AUTO_INCREMENT = 1;
